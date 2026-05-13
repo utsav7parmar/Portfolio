@@ -28,24 +28,24 @@ export const about = {
 export const heroImages = ['/images/hero-1.jpg', '/images/hero-2.jpg', '/images/hero-3.jpg']
 
 export const skills = [
+  { icon: '🐍', label: 'Python' },
+  { icon: '🌿', label: 'Django' },
   { icon: '⚛️', label: 'React' },
-  { icon: '🧠', label: 'TypeScript' },
-  { icon: '🎨', label: 'Tailwind CSS' },
-  { icon: '✨', label: 'Framer Motion' },
-  { icon: '🛠️', label: 'Django REST' },
-  { icon: '🗄️', label: 'PostgreSQL' },
-  { icon: '📡', label: 'API Design' },
-  { icon: '📱', label: 'Responsive UI' },
-  { icon: '🌑', label: 'Dark Mode' },
-  { icon: '📦', label: 'Deployment' },
-  { icon: '🔒', label: 'Authentication' },
-  { icon: '🧪', label: 'Testing' }
+  { icon: '🔌', label: 'API' },
+  { icon: '🐙', label: 'Git / GitHub' },
+  { icon: '🌐', label: 'HTML' },
+  { icon: '🎨', label: 'CSS' },
+  { icon: '🤖', label: 'Machine Learning' },
+  { icon: '🧠', label: 'Deep Learning' },
+  { icon: '🗣️', label: 'NLP' },
+  { icon: '📐', label: 'DSA' },
+  { icon: '📊', label: 'Statistics' },
+  { icon: '🎲', label: 'Probability' }
 ]
 
 export const certifications = [
-  { name: 'Modern React Development', issuer: 'Online Bootcamp', date: '2025' },
-  { name: 'Django REST API Professional', issuer: 'CertifyPro', date: '2024' },
-  { name: 'UI Animation Specialist', issuer: 'Creative Labs', date: '2024' }
+  { image: '/images/aws-cloud-foundations.png', name: 'AWS Cloud Foundations', issuer: 'Amazon Web Services', date: '2025' },
+  { image: '/images/aws-machine-learning.png', name: 'AWS Machine Learning', issuer: 'Amazon Web Services', date: '2025' }
 ]
 
 export const experience = [
