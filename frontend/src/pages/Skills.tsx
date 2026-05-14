@@ -3,85 +3,87 @@ import { motion } from 'framer-motion'
 
 interface SkillItem {
   name: string
-  icon: string
+  image: string
 }
 
 const skills: SkillItem[] = [
-  { name: 'Python', icon: 'python' },
-  { name: 'HTML', icon: 'html' },
-  { name: 'CSS', icon: 'css' },
-  { name: 'JavaScript', icon: 'javascript' },
-  { name: 'React', icon: 'react' },
-  { name: 'Django', icon: 'django' },
-  { name: 'Flask', icon: 'flask' },
-  { name: 'API', icon: 'postman' },
-  { name: 'Git / GitHub', icon: 'github' },
-  { name: 'Machine Learning', icon: 'tensorflow' },
-  { name: 'Deep Learning', icon: 'pytorch' },
-  { name: 'NLP', icon: 'huggingface' },
-  { name: 'DSA', icon: 'code' },
-  { name: 'Statistics', icon: 'pandas' },
-  { name: 'Probability', icon: 'numpy' }
+  { name: 'Python', image: 'https://cdn.simpleicons.org/python/ffffff' },
+  { name: 'Machine Learning', image: 'https://cdn.simpleicons.org/tensorflow/ffffff' },
+  { name: 'Deep Learning', image: 'https://cdn.simpleicons.org/pytorch/ffffff' },
+  { name: 'NLP', image: 'https://cdn.simpleicons.org/huggingface/ffffff' },
+  { name: 'Pandas', image: 'https://cdn.simpleicons.org/pandas/ffffff' },
+  { name: 'NumPy', image: 'https://cdn.simpleicons.org/numpy/ffffff' },
+  { name: 'Scikit-learn', image: 'https://cdn.simpleicons.org/scikitlearn/ffffff' },
+  { name: 'TensorFlow', image: 'https://cdn.simpleicons.org/tensorflow/ffffff' },
+  { name: 'PyTorch', image: 'https://cdn.simpleicons.org/pytorch/ffffff' },
+  { name: 'Matplotlib', image: 'https://cdn.simpleicons.org/matplotlib/ffffff' },
+  { name: 'Seaborn', image: 'https://cdn.simpleicons.org/seaborn/ffffff' },
+  { name: 'Statistics', image: 'https://img.icons8.com/ios-filled/96/ffffff/statistics.png' },
+  { name: 'Probability', image: 'https://img.icons8.com/ios-filled/96/ffffff/probability.png' },
+  { name: 'SQL', image: 'https://cdn.simpleicons.org/mysql/ffffff' },
+  { name: 'Power BI', image: 'https://cdn.simpleicons.org/powerbi/ffffff' },
+  { name: 'FastAPI', image: 'https://cdn.simpleicons.org/fastapi/ffffff' },
+  { name: 'Django', image: 'https://cdn.simpleicons.org/django/ffffff' },
+  { name: 'React', image: 'https://cdn.simpleicons.org/react/ffffff' },
+  { name: 'HTML', image: 'https://cdn.simpleicons.org/html5/ffffff' },
+  { name: 'CSS', image: 'https://cdn.simpleicons.org/css3/ffffff' },
+  { name: 'GitHub', image: 'https://cdn.simpleicons.org/github/ffffff' },
+  { name: 'Data Structures & Algorithms', image: 'https://img.icons8.com/ios-filled/96/ffffff/source-code.png' }
 ]
 
-const libraries: SkillItem[] = [
-  { name: 'Pandas', icon: 'pandas' },
-  { name: 'NumPy', icon: 'numpy' },
-  { name: 'Matplotlib', icon: 'matplotlib' },
-  { name: 'Seaborn', icon: 'seaborn' },
-  { name: 'Scikit-learn', icon: 'scikitlearn' },
-  { name: 'TensorFlow', icon: 'tensorflow' },
-  { name: 'PyTorch', icon: 'pytorch' }
-]
+const rowSize = 11
+const machineLearningSkills = skills.slice(0, rowSize)
+const otherSkills = skills.slice(rowSize, rowSize * 2)
 
 const certificationData = [
   {
     title: 'AWS Cloud Foundations',
     image: '/images/aws-cloud-foundations.png',
     subtitle: 'AWS Academy Certified',
-    date: '2025'
+    date: '2022'
   },
   {
     title: 'AWS Machine Learning Foundations',
     image: '/images/aws-machine-learning.png',
     subtitle: 'AWS Academy Certified',
-    date: '2025'
+    date: '2022'
   }
 ]
 
-const repeatedSkills = [...skills, ...skills]
-const repeatedLibraries = [...libraries, ...libraries]
+const repeatedMachineLearningSkills = [...machineLearningSkills, ...machineLearningSkills]
+const repeatedOtherSkills = [...otherSkills, ...otherSkills]
 
 function SkillTile({ skill }: { skill: SkillItem }) {
   return (
     <div className="group flex min-w-[7.5rem] flex-col items-center justify-center gap-3 rounded-[1.9rem] border border-cyan-400/15 bg-slate-950/60 px-4 py-5 text-center shadow-[0_22px_70px_rgba(14,165,233,0.14)] backdrop-blur-3xl transition duration-300 hover:-translate-y-1 hover:scale-105 hover:border-cyan-300/30 hover:bg-slate-900/90">
       <img
-        src={`https://skillicons.dev/icons?i=${skill.icon}`}
+        src={skill.image}
         alt={skill.name}
-        className="h-12 w-12 rounded-3xl bg-slate-950/90 p-2 transition duration-300 group-hover:scale-110"
+        title={skill.name}
+        className="h-14 w-14 rounded-3xl bg-slate-950/90 p-3 transition duration-300 group-hover:scale-110"
         loading="lazy"
+        onError={(event) => {
+          const target = event.currentTarget
+          if (!target.dataset.fallback) {
+            target.dataset.fallback = 'true'
+            target.src = 'https://cdn.simpleicons.org/github/ffffff'
+          }
+        }}
       />
-      <span className="text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-slate-300">
-        {skill.name}
-      </span>
     </div>
   )
 }
 
 export default function Skills() {
-  const [isPausedLeft, setIsPausedLeft] = useState(false)
-  const [isPausedRight, setIsPausedRight] = useState(false)
+  const [isPausedML, setIsPausedML] = useState(false)
+  const [isPausedOther, setIsPausedOther] = useState(false)
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 px-4 py-16 sm:px-6 lg:px-12">
+    <section id="skills" className="relative overflow-hidden bg-slate-950 px-4 py-16 sm:px-6 lg:px-12">
       <style>{`
         @keyframes marqueeLeft {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes marqueeRight {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(50%); }
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
         }
       `}</style>
 
@@ -99,23 +101,20 @@ export default function Skills() {
             <h2 className="max-w-3xl text-4xl font-semibold leading-tight text-white sm:text-5xl">
               Technologies and tools I use to build scalable AI and software solutions.
             </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
-              A polished, futuristic showcase of modern web, cloud, AI, and database tooling with premium motion and glassmorphism styling.
-            </p>
+            
           </div>
         </div>
 
         <div className="grid gap-6">
-          <div
-            className="relative overflow-hidden rounded-[2rem] border border-cyan-400/10 bg-slate-950/70 px-4 py-6 shadow-[0_24px_80px_rgba(14,165,233,0.10)] backdrop-blur-xl"
-            onMouseEnter={() => setIsPausedLeft(true)}
-            onMouseLeave={() => setIsPausedLeft(false)}
-            onTouchStart={() => setIsPausedLeft(true)}
-            onTouchEnd={() => setIsPausedLeft(false)}
+          <div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/10 bg-slate-950/70 px-4 py-6 shadow-[0_24px_80px_rgba(14,165,233,0.10)] backdrop-blur-xl"
+            onMouseEnter={() => setIsPausedML(true)}
+            onMouseLeave={() => setIsPausedML(false)}
+            onTouchStart={() => setIsPausedML(true)}
+            onTouchEnd={() => setIsPausedML(false)}
           >
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-sm uppercase tracking-[0.28em] text-cyan-300/80">
-                Infinite slide — left
+                Machine learning skills
               </span>
               <span className="rounded-full bg-slate-900/80 px-3 py-1 text-xs text-slate-300">
                 Hover to pause
@@ -123,29 +122,28 @@ export default function Skills() {
             </div>
             <div className="pointer-events-none overflow-hidden">
               <div
-                className="flex min-w-[200%] items-center gap-5"
+                className="flex flex-nowrap min-w-[200%] items-center gap-5"
                 style={{
-                  animation: `marqueeLeft 28s linear infinite`,
-                  animationPlayState: isPausedLeft ? 'paused' : 'running'
+                  animation: `marqueeLeft 30s linear infinite`,
+                  animationPlayState: isPausedML ? 'paused' : 'running'
                 }}
               >
-                {repeatedSkills.map((skill, index) => (
-                  <SkillTile key={`${skill.icon}-left-${index}`} skill={skill} />
+                {repeatedMachineLearningSkills.map((skill, index) => (
+                  <SkillTile key={`ml-${skill.name}-${index}`} skill={skill} />
                 ))}
               </div>
             </div>
           </div>
 
-          <div
-            className="relative overflow-hidden rounded-[2rem] border border-fuchsia-400/10 bg-slate-950/70 px-4 py-6 shadow-[0_24px_80px_rgba(244,114,182,0.10)] backdrop-blur-xl"
-            onMouseEnter={() => setIsPausedRight(true)}
-            onMouseLeave={() => setIsPausedRight(false)}
-            onTouchStart={() => setIsPausedRight(true)}
-            onTouchEnd={() => setIsPausedRight(false)}
+          <div className="relative overflow-hidden rounded-[2rem] border border-fuchsia-400/10 bg-slate-950/70 px-4 py-6 shadow-[0_24px_80px_rgba(244,114,182,0.10)] backdrop-blur-xl"
+            onMouseEnter={() => setIsPausedOther(true)}
+            onMouseLeave={() => setIsPausedOther(false)}
+            onTouchStart={() => setIsPausedOther(true)}
+            onTouchEnd={() => setIsPausedOther(false)}
           >
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-sm uppercase tracking-[0.28em] text-fuchsia-300/80">
-                Infinite slide — right
+                Remaining skills
               </span>
               <span className="rounded-full bg-slate-900/80 px-3 py-1 text-xs text-slate-300">
                 Hover to pause
@@ -153,14 +151,14 @@ export default function Skills() {
             </div>
             <div className="pointer-events-none overflow-hidden">
               <div
-                className="flex min-w-[200%] items-center gap-5"
+                className="flex flex-nowrap min-w-[200%] items-center gap-5"
                 style={{
-                  animation: `marqueeRight 32s linear infinite`,
-                  animationPlayState: isPausedRight ? 'paused' : 'running'
+                  animation: `marqueeLeft 32s linear infinite`,
+                  animationPlayState: isPausedOther ? 'paused' : 'running'
                 }}
               >
-                {repeatedLibraries.map((skill, index) => (
-                  <SkillTile key={`${skill.icon}-right-${index}`} skill={skill} />
+                {repeatedOtherSkills.map((skill, index) => (
+                  <SkillTile key={`other-${skill.name}-${index}`} skill={skill} />
                 ))}
               </div>
             </div>
