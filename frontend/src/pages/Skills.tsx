@@ -7,26 +7,26 @@ interface SkillItem {
 }
 
 const skills: SkillItem[] = [
-  { name: 'Python', image: 'https://cdn.simpleicons.org/python/ffffff' },
-  { name: 'Machine Learning', image: 'https://cdn.simpleicons.org/tensorflow/ffffff' },
-  { name: 'Deep Learning', image: 'https://cdn.simpleicons.org/pytorch/ffffff' },
-  { name: 'NLP', image: 'https://cdn.simpleicons.org/huggingface/ffffff' },
-  { name: 'Pandas', image: 'https://cdn.simpleicons.org/pandas/ffffff' },
-  { name: 'NumPy', image: 'https://cdn.simpleicons.org/numpy/ffffff' },
-  { name: 'Scikit-learn', image: 'https://cdn.simpleicons.org/scikitlearn/ffffff' },
-  { name: 'TensorFlow', image: 'https://cdn.simpleicons.org/tensorflow/ffffff' },
-  { name: 'PyTorch', image: 'https://cdn.simpleicons.org/pytorch/ffffff' },
+  { name: 'Python', image: 'https://cdn.simpleicons.org/python/3776AB' },
+  { name: 'Machine Learning', image: 'https://img.icons8.com/ios-filled/96/ffffff/brain.png' },
+  { name: 'Deep Learning', image: 'https://cdn.simpleicons.org/pytorch/EE4C2C' },
+  { name: 'NLP', image: 'https://cdn.simpleicons.org/huggingface/FF9900' },
+  { name: 'Pandas', image: 'https://cdn.simpleicons.org/pandas/150458' },
+  { name: 'NumPy', image: 'https://cdn.simpleicons.org/numpy/013243' },
+  { name: 'Scikit-learn', image: 'https://cdn.simpleicons.org/scikitlearn/1A3F95' },
+  { name: 'TensorFlow', image: 'https://cdn.simpleicons.org/tensorflow/FF6F00' },
+  { name: 'PyTorch', image: 'https://cdn.simpleicons.org/pytorch/EE4C2C' },
   { name: 'Matplotlib', image: 'https://cdn.simpleicons.org/matplotlib/ffffff' },
   { name: 'Seaborn', image: 'https://cdn.simpleicons.org/seaborn/ffffff' },
   { name: 'Statistics', image: 'https://img.icons8.com/ios-filled/96/ffffff/statistics.png' },
   { name: 'Probability', image: 'https://img.icons8.com/ios-filled/96/ffffff/probability.png' },
   { name: 'SQL', image: 'https://cdn.simpleicons.org/mysql/ffffff' },
-  { name: 'Power BI', image: 'https://cdn.simpleicons.org/powerbi/ffffff' },
-  { name: 'FastAPI', image: 'https://cdn.simpleicons.org/fastapi/ffffff' },
-  { name: 'Django', image: 'https://cdn.simpleicons.org/django/ffffff' },
-  { name: 'React', image: 'https://cdn.simpleicons.org/react/ffffff' },
+  { name: 'Power BI', image: 'https://img.icons8.com/ios-filled/96/ffffff/power-bi.png' },
+  { name: 'FastAPI', image: 'https://cdn.simpleicons.org/fastapi/009688' },
+  { name: 'Django', image: 'https://cdn.simpleicons.org/django/092E20' },
+  { name: 'React', image: 'https://cdn.simpleicons.org/react/61DAFB' },
   { name: 'HTML', image: 'https://cdn.simpleicons.org/html5/ffffff' },
-  { name: 'CSS', image: 'https://cdn.simpleicons.org/css3/ffffff' },
+  { name: 'CSS', image: 'https://cdn.simpleicons.org/css3/264DE4' },
   { name: 'GitHub', image: 'https://cdn.simpleicons.org/github/ffffff' },
   { name: 'Data Structures & Algorithms', image: 'https://img.icons8.com/ios-filled/96/ffffff/source-code.png' }
 ]
@@ -54,22 +54,30 @@ const repeatedMachineLearningSkills = [...machineLearningSkills, ...machineLearn
 const repeatedOtherSkills = [...otherSkills, ...otherSkills]
 
 function SkillTile({ skill }: { skill: SkillItem }) {
+  const [imageFailed, setImageFailed] = useState(false)
+  const initials = skill.name
+    .split(' ')
+    .map((word) => word[0])
+    .slice(0, 2)
+    .join('')
+
   return (
     <div className="group flex min-w-[7.5rem] flex-col items-center justify-center gap-3 rounded-[1.9rem] border border-cyan-400/15 bg-slate-950/60 px-4 py-5 text-center shadow-[0_22px_70px_rgba(14,165,233,0.14)] backdrop-blur-3xl transition duration-300 hover:-translate-y-1 hover:scale-105 hover:border-cyan-300/30 hover:bg-slate-900/90">
-      <img
-        src={skill.image}
-        alt={skill.name}
-        title={skill.name}
-        className="h-14 w-14 rounded-3xl bg-slate-950/90 p-3 transition duration-300 group-hover:scale-110"
-        loading="lazy"
-        onError={(event) => {
-          const target = event.currentTarget
-          if (!target.dataset.fallback) {
-            target.dataset.fallback = 'true'
-            target.src = 'https://cdn.simpleicons.org/github/ffffff'
-          }
-        }}
-      />
+      {!imageFailed ? (
+        <img
+          src={skill.image}
+          alt={skill.name}
+          title={skill.name}
+          className="h-14 w-14 rounded-3xl bg-slate-950/90 p-3 transition duration-300 group-hover:scale-110"
+          loading="lazy"
+          onError={() => setImageFailed(true)}
+        />
+      ) : (
+        <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-slate-900/90 text-sm font-semibold text-slate-100 shadow-inner">
+          {initials}
+        </div>
+      )}
+      <p className="text-sm font-medium text-slate-100">{skill.name}</p>
     </div>
   )
 }
